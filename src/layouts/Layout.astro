@@ -1,0 +1,26 @@
+---
+const notRootPath = Astro.url.pathname !== '/';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Alif Yasa</title>
+		<link rel="stylesheet" href="/main.css" />
+	</head>
+	<body>
+		<slot />
+		{notRootPath && (
+			<footer style="display: flex; justify-content: flex-end;">
+				<p><a href="/"><i>back to home</i></a></p>
+			</footer>
+		)}
+	</body>
+</html>
+
+<style>
+</style>
