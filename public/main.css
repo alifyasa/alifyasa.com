@@ -47,6 +47,8 @@ body {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Typography */
@@ -57,14 +59,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, ul, ol {
-  font-size: 1rem;
-  line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 li {
-  font-size: 1rem;
-  line-height: 1.6;
   margin-bottom: 0.5rem;
 }
 
@@ -130,6 +128,7 @@ input, textarea, select {
 @media (min-width: 768px) {
   body {
     padding: 2rem;
+    font-size: 1.125rem;
   }
 
   h1 {
@@ -142,10 +141,6 @@ input, textarea, select {
 
   h3 {
     font-size: 1.5rem;
-  }
-
-  p, ul, ol, li {
-    font-size: 1.125rem;
   }
 }
 
@@ -162,12 +157,9 @@ input, textarea, select {
     font-size: 1.875rem;
   }
 
-  p, ul, ol, li {
-    font-size: 1.25rem;
-  }
-
   body {
     padding: 3rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -184,11 +176,30 @@ input, textarea, select {
     font-size: 2.25rem;
   }
 
-  p, ul, ol, li {
-    font-size: 1.375rem;
-  }
-
   body {
     padding: 4rem;
+    font-size: 1.375rem;
   }
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-bg);
+  margin-bottom: 1rem;
+}
+
+thead {
+  border-bottom: 2px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ccc;
 }
