@@ -61,3 +61,10 @@ jobs:
             | sed 's#^#/#' \
             | uniq \
             | tee changed.txt
+      
+      - name: Invalidate Chaged File's Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths $(cat changed.txt) \
+            --caller-reference $(date +%s)
