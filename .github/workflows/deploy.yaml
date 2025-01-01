@@ -34,7 +34,7 @@ jobs:
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
-          rclone version 
+          rclone version
 
       - name: Configure rclone
         run: |
@@ -49,11 +49,11 @@ jobs:
         run: |
           rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }}/ \
             --checksum --verbose --combined report.txt --absolute
-      
+
       - name: Print Report
         run: |
           cat report.txt
-      
+
       - name: Print Changed
         run: |
           grep -v '^=' report.txt \
@@ -61,7 +61,7 @@ jobs:
             | sed 's#^#/#' \
             | uniq \
             | tee changed.txt
-      
+
       - name: Check if changed.txt is not empty
         id: check_changed
         run: |
