@@ -53,4 +53,7 @@ jobs:
       - name: Print Report
         run: |
           cat report.txt
+          # Print Changed
+          grep -v '^=' report.txt | sed 's/^[+-] //' | tee changed.txt
+
       
