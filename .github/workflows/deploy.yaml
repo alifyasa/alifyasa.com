@@ -62,7 +62,17 @@ jobs:
             | uniq \
             | tee changed.txt
       
+      - name: Check if changed.txt is not empty
+        id: check_changed
+        run: |
+          if [ -s changed.txt ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Invalidate Chaged File's Cache
+        if: steps.check_changed.outputs.changed == 'true'
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
