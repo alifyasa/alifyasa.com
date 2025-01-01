@@ -38,7 +38,7 @@ jobs:
 
       - name: Configure rclone
         run: |
-          rclone config create myremote s3 \
+          rclone config create production-s3 s3 \
             access_key_id "$AWS_ACCESS_KEY_ID" \
             secret_access_key "$AWS_SECRET_ACCESS_KEY" \
             session_token "$AWS_SESSION_TOKEN" \
@@ -48,4 +48,4 @@ jobs:
 
       - name: Sync to S3 with rclone
         run: |
-          rclone sync dist/ s3://${{ vars.S3_BUCKET_NAME }} --verbose --checksum
+          rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }} --verbose --checksum
