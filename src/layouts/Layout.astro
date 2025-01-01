@@ -16,7 +16,7 @@ const notRootPath = Astro.url.pathname !== "/";
     <slot />
     {
       notRootPath && (
-        <footer style="display: flex; justify-content: flex-end;">
+        <footer style="display: flex; justify-content: flex-end; margin-top: 2rem;">
           <p>
             <a href="/">
               <i>back to home</i>
