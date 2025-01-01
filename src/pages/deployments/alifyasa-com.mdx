@@ -27,6 +27,7 @@ It simply does this:
 ```
 npm install
 npm run build
-# aws login
-aws s3 sync dist/ s3://${{ vars.S3_BUCKET_NAME }} --delete
+aws login
+rclone config
+rclone sync
 ```
