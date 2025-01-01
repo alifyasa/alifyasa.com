@@ -32,9 +32,9 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Install rclone
-        uses: rclone/rclone-action@v2
-        with:
-          version: v1.59.0  # Specify desired rclone version
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          rclone version 
 
       - name: Configure rclone
         run: |
