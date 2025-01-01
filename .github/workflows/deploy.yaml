@@ -48,5 +48,5 @@ jobs:
       - name: Sync to S3 with rclone
         run: |
           rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }} \
-            --checksum --checksum --csv
+            --checksum --verbose --csv
       
