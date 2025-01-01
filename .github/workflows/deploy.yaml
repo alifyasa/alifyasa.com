@@ -48,8 +48,5 @@ jobs:
       - name: Sync to S3 with rclone
         run: |
           rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }} \
-            --checksum --checksum --log-json --log-file sync.log
+            --checksum --checksum --csv
       
-      - name: View Changed Files
-        run: |
-          cat sync.log
