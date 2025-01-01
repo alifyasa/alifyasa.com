@@ -24,13 +24,6 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
-
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
@@ -41,7 +34,6 @@ jobs:
           rclone config create production-s3 s3 \
             access_key_id "$AWS_ACCESS_KEY_ID" \
             secret_access_key "$AWS_SECRET_ACCESS_KEY" \
-            session_token "$AWS_SESSION_TOKEN" \
             region ${{ vars.AWS_REGION }} \
             endpoint https://s3.amazonaws.com \
             provider AWS
