@@ -32,9 +32,9 @@ jobs:
       - name: Configure rclone
         run: |
           rclone config create production-s3 s3 \
-            access_key_id "$AWS_ACCESS_KEY_ID" \
-            secret_access_key "$AWS_SECRET_ACCESS_KEY" \
-            region ${{ vars.AWS_REGION }} \
+            access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+            region "${{ vars.AWS_REGION }}" \
             endpoint https://s3.amazonaws.com \
             provider AWS
 
