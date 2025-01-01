@@ -76,5 +76,4 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
-            --paths $(cat changed.txt) \
-            --caller-reference $(date +%s)
+            --paths $(cat changed.txt)
