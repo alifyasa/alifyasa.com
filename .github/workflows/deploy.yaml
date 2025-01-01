@@ -31,6 +31,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Sync to S3
+      - name: Install rclone
+        uses: rclone/rclone-action@v2
+        with:
+          version: v1.59.0  # Specify desired rclone version
+
+      - name: Configure rclone
         run: |
-          aws s3 sync dist/ s3://${{ vars.S3_BUCKET_NAME }} --delete --checksum-algorithm CRC32
+          rclone config create myremote s3 \
+            access_key_id "$AWS_ACCESS_KEY_ID" \
+            secret_access_key "$AWS_SECRET_ACCESS_KEY" \
+            session_token "$AWS_SESSION_TOKEN" \
+            region ${{ vars.AWS_REGION }} \
+            endpoint https://${{ vars.AWS_REGION }}.s3.amazonaws.com \
+            provider AWS
+
+      - name: Sync to S3 with rclone
+        run: |
+          rclone sync dist/ s3://${{ vars.S3_BUCKET_NAME }} --verbose --checksum
