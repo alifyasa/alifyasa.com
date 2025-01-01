@@ -41,16 +41,15 @@ jobs:
           rclone config create production-s3 s3 \
             access_key_id "$AWS_ACCESS_KEY_ID" \
             secret_access_key "$AWS_SECRET_ACCESS_KEY" \
-            region "${{ vars.AWS_REGION }}" \
+            region "$AWS_REGION" \
             endpoint https://s3.amazonaws.com \
             provider AWS
 
       - name: Sync to S3 with rclone
         run: |
           rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }} \
-            --checksum --verbose | tee sync.log
+            --checksum --checksum --log-json --log-file sync.log
       
       - name: View Changed Files
         run: |
           cat sync.log
-          grep -E "Transferred|Copied" sync.log | awk '{print $4}'
