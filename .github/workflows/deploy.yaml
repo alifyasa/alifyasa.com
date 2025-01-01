@@ -43,7 +43,7 @@ jobs:
             secret_access_key "$AWS_SECRET_ACCESS_KEY" \
             session_token "$AWS_SESSION_TOKEN" \
             region ${{ vars.AWS_REGION }} \
-            endpoint https://${{ vars.AWS_REGION }}.s3.amazonaws.com \
+            endpoint https://s3.amazonaws.com \
             provider AWS
 
       - name: Sync to S3 with rclone
