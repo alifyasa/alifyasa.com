@@ -24,6 +24,13 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
@@ -32,12 +39,21 @@ jobs:
       - name: Configure rclone
         run: |
           rclone config create production-s3 s3 \
-            access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}" \
-            secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+            access_key_id "$AWS_ACCESS_KEY_ID" \
+            secret_access_key "$AWS_SECRET_ACCESS_KEY" \
             region "${{ vars.AWS_REGION }}" \
             endpoint https://s3.amazonaws.com \
             provider AWS
 
       - name: Sync to S3 with rclone
         run: |
-          rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }} --verbose --checksum
+          rclone sync dist/ production-s3://${{ vars.S3_BUCKET_NAME }} \
+            --verbose \
+            --checksum \
+            --log-file=sync.log \
+            --log-level=INFO
+      
+      - name: View Changed Files
+        run: |
+          cat sync.log
+          grep -E "Transferred|Copied" sync.log | awk '{print $4}'
