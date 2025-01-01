@@ -56,4 +56,8 @@ jobs:
       
       - name: Print Changed
         run: |
-          grep -v '^=' report.txt | sed 's/^.[[:space:]]*//' | uniq | tee changed.txt
+          grep -v '^=' report.txt \
+            | sed 's/^.[[:space:]]*//' \
+            | sed 's#^#/#' \
+            | uniq \
+            | tee changed.txt
