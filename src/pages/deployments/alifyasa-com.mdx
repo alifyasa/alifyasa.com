@@ -1,0 +1,32 @@
+---
+layout: "@/layouts/Layout.astro"
+---
+
+# Architecture of `alifyasa.com`
+
+## Overview
+
+| Component                                               | Description                        |
+| ------------------------------------------------------- | ---------------------------------- |
+| [Amazon S3](https://aws.amazon.com/s3/)                 | Stores static files                |
+| [Amazon CloudFront](https://aws.amazon.com/cloudfront/) | Content Delivery Network           |
+| [GitHub Actions](https://github.com/features/actions)   | Continuous Deployment to Amazon S3 |
+
+## Basic Workflow
+
+1.  I modify the code.
+2.  I push to `main`.
+3.  _GitHub Actions_ triggered, built the website and deploy it to S3.
+4.  When the CDN cache expires, it will fetch the new one from S3. For now, I can also [manually invalidate it](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html), but I'm thinking of a way to automate this.
+
+## How GitHub Actions Deploy to S3
+
+Full code [_here_](https://github.com/alifyasa/alifyasa.com/blob/main/.github/workflows/deploy.yaml).
+It simply does this:
+
+```
+npm install
+npm run build
+# aws login
+aws s3 sync dist/ s3://${{ vars.S3_BUCKET_NAME }} --delete
+```
