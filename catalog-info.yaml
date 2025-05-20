@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: alifyasa.com
+  annotations:
+    github.com/project-slug: alifyasa/alifyasa.com
+spec:
+  type: other
+  lifecycle: unknown
+  owner: reza
